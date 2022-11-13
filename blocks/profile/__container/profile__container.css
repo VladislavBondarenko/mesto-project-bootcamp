@@ -2,6 +2,7 @@
   display: flex;
   align-items: baseline;
 }
+
 @media screen and (max-width: 620px) {
   .profile__container {
     justify-content: center;
