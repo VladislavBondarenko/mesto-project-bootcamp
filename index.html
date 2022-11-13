@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Место</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="логотип mesto" />
+    </header>
+    <main>
+      <section class="profile">
+        <div class="profile__avatar">
+          <img
+            class="profile__image"
+            src="./images/image.jpg"
+            alt="фото профиля"
+          />
+        </div>
+        <div class="profile__info">
+          <div class="profile__container">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button"></button>
+          </div>
+          <p class="profile__about">Исследователь океана</p>
+        </div>
+        <button type="button" class="profile__add-button"></button>
+      </section>
+      <section class="elements-container">
+        <ul class="elements">
+          <li class="element">
+            <img
+              class="element__image"
+              src="./images/picture2.jpg"
+              alt="Карачаевск"
+            />
+            <div class="element__group">
+              <h2 class="element__title">Карачаевск</h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img
+              class="element__image"
+              src="./images/picture1.jpg"
+              alt="Домбай"
+            />
+            <div class="element__group">
+              <h2 class="element__title">Домбай</h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img
+              class="element__image"
+              src="./images/picture3.jpg"
+              alt="гора Эльбрус"
+            />
+            <div class="element__group">
+              <h2 class="element__title">Эльбрус</h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img
+              class="element__image"
+              src="./images/picture1.jpg"
+              alt="Домбай"
+            />
+            <div class="element__group">
+              <h2 class="element__title">Домбай</h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img
+              class="element__image"
+              src="./images/picture3.jpg"
+              alt="гора Эльбрус"
+            />
+            <div class="element__group">
+              <h2 class="element__title">Эльбрус</h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img
+              class="element__image"
+              src="./images/picture2.jpg"
+              alt="Карачаево"
+            />
+            <div class="element__group">
+              <h2 class="element__title">Карачаево-Черкессия</h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2022 Mesto Russia</p>
+    </footer>
+    <div class="popup popup__opened">
+      <div class="popup__container">
+        <div class="popup__form">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <p class="popup__field popup__field_name">Жак-Ив Кусто</p>
+          <p class="popup__field popup__field_about">Исследователь океана</p>
+          <button class="popup__button">Сохранить</button>
+        </div>
+        <button class="popup__close-button"></button>
+      </div>
+    </div>
+  </body>
+</html>
