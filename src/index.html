@@ -38,18 +38,37 @@
     </footer>
     <div class="popup popup_profile-edit">
       <div class="popup__container">
-        <form class="popup__form" id="formEditProfile" name="popupForm">
+        <form
+          class="popup__form popup__form_profile-edit"
+          id="formEditProfile"
+          name="formEditProfile"
+          novalidate
+        >
           <h2 class="popup__title">Редактировать профиль</h2>
           <input
             class="popup__field popup__field_name"
-            placeholder="Жак-Ив Кусто"
+            placeholder="Имя"
             name="nameUser"
+            id="name-user"
+            type="text"
+            minlength="2"
+            maxlength="40"
+            required
+            value="Жак-Ив Кусто"
           />
+          <span class="popup__field-error" id="name-user-error"></span>
           <input
             class="popup__field popup__field_about"
-            placeholder="Иследователь океана"
+            placeholder="О себе"
             name="aboutUser"
+            id="about-user"
+            minlength="2"
+            maxlength="200"
+            required
+            type="text"
+            value="Исследователь океана"
           />
+          <span class="popup__field-error" id="about-user-error"></span>
           <button
             type="submit"
             class="popup__submit-button popup__submit-button_edit"
@@ -62,18 +81,33 @@
     </div>
     <div class="popup popup_add-card">
       <div class="popup__container">
-        <form class="popup__form" id="formAddNewPlace" name="popupForm">
+        <form
+          class="popup__form popup__form_add-card"
+          id="formAddNewPlace"
+          name="formAddNewPlace"
+          novalidate
+        >
           <h2 class="popup__title">Новое место</h2>
           <input
             class="popup__field popup__place_name"
             placeholder="Название"
             name="name"
+            id="name-card"
+            type="text"
+            required
+            minlength="2"
+            maxlength="30"
           />
+          <span class="popup__field-error" id="name-card-error"></span>
           <input
             class="popup__field popup__place_url"
             placeholder="Cсылка на картинку"
             name="url"
+            id="url-card"
+            type="url"
+            required
           />
+          <span class="popup__field-error" id="url-card-error"></span>
           <button
             type="submit"
             class="popup__submit-button popup__submit-button_add"
@@ -106,6 +140,6 @@
         </div>
       </li>
     </template>
-    <script src="index.js"></script>
+    <script type="module" src="./index.js"></script>
   </body>
 </html>

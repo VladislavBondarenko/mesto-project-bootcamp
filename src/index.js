@@ -1,22 +1,24 @@
+import { enableValidation } from "../src/componets/validate.js";
+import { handleProfileFormSubmit } from "./componets/modal.js";
+import { openPopup, closePopup, keyHandle } from "./componets/utils.js";
+import { render } from "./componets/card.js";
+
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_profile-edit");
 const popups = document.querySelectorAll(".popup");
-const closeButton = document.querySelectorAll(".popup__close-button");
 const addButton = document.querySelector(".profile__add-button");
-const formProfile = document.querySelector(".popup__form");
+const formProfile = document.querySelector(".popup__form_profile-edit");
 const nameInput = document.querySelector(".popup__field_name");
 const jobInput = document.querySelector(".popup__field_about");
-const submitEdit = document.querySelector(".popup__submit-button_edit");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const popupAdd = document.querySelector(".popup_add-card");
-const submitAdd = document.querySelector(".popup__submit-button_add");
-const likeButtons = document.querySelectorAll(".element__like-button");
 const formAddNewPlace = document.querySelector("#formAddNewPlace");
-const element = document.querySelectorAll("element__like-button");
+const name = document.querySelector(".popup__place_name");
+const image = document.querySelector(".popup__place_url");
 const zoomImagePopup = document.querySelector(".popup_zoom_image");
-const zoomImage = document.querySelector(".element__image");
-
+const zoomCaption = document.querySelector(".popup__caption");
+const zoomImage = document.querySelector(".popup__image");
 const initialCards = [
   {
     name: "Архыз",
@@ -53,16 +55,15 @@ const cardInfo = initialCards.map(function (item) {
   };
 });
 
-function render() {
-  cardInfo.forEach(renderCard);
-}
+addButton.addEventListener("click", function () {
+  openPopup(popupAdd);
+});
 
-function renderCard({ name, link }) {
-  console.log(name, link);
+function createCard({ name, link }) {
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   cardElement.querySelector(".element__title").textContent = name;
   cardElement.querySelector(".element__image").src = link;
-  cardElement.querySelector(".element__title").textContent = name;
+  cardElement.querySelector(".element__title").alt = name;
   const image = cardElement.querySelector(".element__image");
   image.src = link;
   image.alt = name;
@@ -76,23 +77,18 @@ function renderCard({ name, link }) {
     cardElement.remove();
   });
   image.addEventListener("click", function () {
-    zoomImagePopup.classList.add("popup_opened");
-    const zoomCaption = document.querySelector(".popup__caption");
-    const zoomImage = document.querySelector(".popup__image");
+    openPopup(zoomImagePopup);
     zoomCaption.textContent = name;
     zoomImage.src = link;
     zoomImage.alt = name;
   });
   cardsContainer.prepend(cardElement);
 }
+
 render();
 
-addButton.addEventListener("click", function () {
-  popupAdd.classList.toggle("popup_opened");
-});
-
 editButton.addEventListener("click", function () {
-  popupEdit.classList.toggle("popup_opened");
+  openPopup(popupEdit);
 });
 
 popups.forEach(function (popup) {
@@ -103,23 +99,30 @@ popups.forEach(function (popup) {
   });
 });
 
-function formSubmitEdit(evt) {
-  evt.preventDefault();
-  const nameValue = nameInput.value;
-  const jobValue = jobInput.value;
-  profileName.textContent = nameValue;
-  profileAbout.textContent = jobValue;
-  popups[0].classList.remove("popup_opened");
-}
-
-formProfile.addEventListener("submit", formSubmitEdit);
+formProfile.addEventListener("submit", handleProfileFormSubmit);
 
 formAddNewPlace.addEventListener("submit", function (evt) {
   evt.preventDefault();
-  const name = document.querySelector(".popup__place_name");
-  const image = document.querySelector(".popup__place_url");
   const nameValue = name.value;
   const imageValue = image.value;
-  renderCard({ name: nameValue, link: imageValue });
-  popupAdd.classList.remove("popup_opened");
+  createCard({ name: nameValue, link: imageValue });
+  closePopup(popupAdd);
+  evt.target.reset();
 });
+
+enableValidation();
+
+popups.forEach((popup) => {
+  document.body.addEventListener("keyup", (evt) => keyHandle(evt, popup));
+});
+
+export {
+  createCard,
+  cardInfo,
+  nameInput,
+  jobInput,
+  profileName,
+  profileAbout,
+  popupEdit,
+  formAddNewPlace,
+};
