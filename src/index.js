@@ -2,6 +2,7 @@ import { enableValidation } from "../src/componets/validate.js";
 import { handleProfileFormSubmit } from "./componets/modal.js";
 import { openPopup, closePopup, keyHandle } from "./componets/utils.js";
 import { render } from "./componets/card.js";
+import "./pages/index.css";
 
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_profile-edit");
