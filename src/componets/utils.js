@@ -1,5 +1,8 @@
+const popups = document.querySelectorAll(".popup");
+
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", handleKey);
 }
 
 function openPopup(popup) {
@@ -9,12 +12,31 @@ function openPopup(popup) {
       closePopup(popup);
     }
   });
+  document.addEventListener("keydown", handleKey);
 }
 
-function keyHandle(evt, popup) {
+function handleKey(evt) {
   if (evt.key === "Escape") {
-    closePopup(popup);
+    const openedPopup = document.querySelector(".popup_opened");
+    console.log(openedPopup);
+    closePopup(openedPopup);
   }
 }
 
-export { closePopup, openPopup, keyHandle };
+popups.forEach(function (popup) {
+  popup.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
+});
+
+function loadRender(isLoading, button) {
+  if (isLoading) {
+    button.textContent = button.textContent + "...";
+  } else {
+    button.textContent = button.textContent + "...";
+  }
+}
+
+export { closePopup, openPopup, handleKey, loadRender };

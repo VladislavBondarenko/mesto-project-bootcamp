@@ -8,23 +8,24 @@
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип mesto" />
+      <img
+        class="header__logo"
+        src="<%=require('./images/logo.svg')%>"
+        alt="логотип mesto"
+      />
     </header>
     <main>
       <section class="profile">
         <div class="profile__avatar">
-          <img
-            class="profile__image"
-            src="<%=require('./images/image.jpg')%>"
-            alt="фото профиля"
-          />
+          <img class="profile__image" src="#" alt="фото профиля" />
+          <button type="button" class="profile__avatar-edit-button"></button>
         </div>
         <div class="profile__info">
           <div class="profile__container">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h1 class="profile__name"></h1>
             <button type="button" class="profile__edit-button"></button>
           </div>
-          <p class="profile__about">Исследователь океана</p>
+          <p class="profile__about"></p>
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
@@ -117,6 +118,34 @@
         <button type="button" class="popup__close-button"></button>
       </div>
     </div>
+    <div class="popup popup_add-avatar">
+      <div class="popup__container">
+        <form
+          class="popup__form popup__form_add-avatar"
+          id="formAddNewAvatar"
+          name="formAddNewAvatar"
+          novalidate
+        >
+          <h2 class="popup__title">Обновить аватар</h2>
+          <input
+            class="popup__field popup__avatar_url"
+            placeholder="Ссылка на картинку"
+            name="userAvatar"
+            id="url-avatar"
+            type="url"
+            required
+          />
+          <span class="popup__field-error" id="url-avatar-error"></span>
+          <button
+            type="submit"
+            class="popup__submit-button popup__submit-button-avatar_add"
+          >
+            Сохранить
+          </button>
+        </form>
+        <button type="button" class="popup__close-button"></button>
+      </div>
+    </div>
     <div class="popup popup_zoom_image">
       <div class="popup__figure-container">
         <figure class="popup__figure">
@@ -135,10 +164,12 @@
         <img class="element__image" src="#" alt="#" />
         <div class="element__group">
           <h2 class="element__title"></h2>
-          <button class="element__like-button" type="button"></button>
+          <div class="element__like-wrapper">
+            <button class="element__like-button" type="button"></button>
+            <span class="element__like-count"></span>
+          </div>
         </div>
       </li>
     </template>
-    <script type="module" src="./index.js"></script>
   </body>
 </html>

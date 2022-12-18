@@ -1,8 +1,8 @@
 function showInputError(inputElement, errorMessage) {
   const errorElement = document.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add("popup__field_type_error");
-  errorElement.textContent = errorMessage;
   errorElement.classList.add("popup__field-error_active");
+  errorElement.textContent = errorMessage;
 }
 
 function hideInputError(inputElement) {
@@ -29,8 +29,10 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("popup__submit-button_disabled");
+    buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove("popup__submit-button_disabled");
+    buttonElement.disabled = false;
   }
 }
 
