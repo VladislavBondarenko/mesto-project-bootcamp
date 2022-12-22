@@ -40,8 +40,8 @@ const editProfileInfo = (name, about) => {
     method: "PATCH",
     headers: apiConfig.headers,
     body: JSON.stringify({
-      name: `${name.textcontent}`,
-      about: `${about.textcontent}`,
+      name: `${name.value}`,
+      about: `${about.value}`,
     }),
   }).then((res) => {
     return handleResponse(res);
@@ -52,6 +52,7 @@ const fetchProfileInfo = () => {
   return fetch(`${apiConfig.baseUrl}/users/me`, {
     headers: apiConfig.headers,
   }).then((res) => {
+    console.log(res);
     return handleResponse(res);
   });
 };
@@ -88,7 +89,7 @@ const editAvatar = (linkAvatar) => {
     method: "PATCH",
     headers: apiConfig.headers,
     body: JSON.stringify({
-      avatar: `${linkAvatar}`,
+      avatar: `${linkAvatar.value}`,
     }),
   }).then((res) => {
     return handleResponse(res);

@@ -1,6 +1,6 @@
 import { openPopup } from "../componets/utils.js";
 import { cardsContainer } from "../main.js";
-import { deleteCard, deleteLike, fetchCards, putLike } from "./api.js";
+import { deleteCard, deleteLike, putLike } from "./api.js";
 
 const zoomImagePopup = document.querySelector(".popup_zoom_image");
 const zoomCaption = document.querySelector(".popup__caption");
@@ -20,7 +20,6 @@ const createCard = (element, user) => {
 
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   const cardImage = cardElement.querySelector(".element__image");
-  const likeNumber = cardElement.querySelector(".element__like-count");
   const likeButton = cardElement.querySelector(".element__like-button");
   const removeButton = cardElement.querySelector(".element__remove-button");
 
@@ -42,8 +41,7 @@ const createCard = (element, user) => {
     putLikes(evt, cardId, cardElement);
   });
   if (userId === cardOwnerId) {
-    removeButton.setAttribute("id", cardId);
-    cardElement.addEventListener("click", (evt) => {
+    removeButton.addEventListener("click", (evt) => {
       deleteUserCard(evt, cardId);
     });
   } else {
@@ -64,57 +62,17 @@ function fetchCard(element, user) {
   cardsContainer.prepend(cardElement);
 }
 
-// const renderCards = (imageValue, titleValue) => {
-//   const likeNumbers = document.querySelector(".element__like-count");
-//   likeNumbers.textContent = "0";
-//   const cardElement = createCard(imageValue, titleValue, likeNumbers);
-//   cardsContainer.prepend(cardElement);
-// };
-
-// fetchCards().then((elements) => {
-//   console.log(elements);
-//   elements.forEach((element) => {
-//     const cardElement = createCard(element.link, element.name, element.likes);
-//     const removeButton = cardElement.querySelector(".element__remove-button");
-//     if (element["owner"]["_id"] !== "5d05e97582a44e0e5de2165a") {
-//       removeButton.remove();
-//     }
-//     cardElement.addEventListener("click", (evt) => {
-//       if (
-//         evt.target.classList.contains("element__remove-button") &&
-//         element["owner"]["_id"] === "5d05e97582a44e0e5de2165a"
-//       ) {
-//         evt.currentTarget.remove();
-//         deleteCard(element["_id"]);
-//       }
-//     });
-//     const likeNumber = cardElement.querySelector(".element__like-coun");
-//     cardElement.addEventListener("click", (evt) => {
-//       if (evt.target.classList.contains("element__like-button")) {
-//         if (evt.target.classList.contains("element__like-button_active")) {
-//           deleteLike(element["_id"]);
-//           evt.target.classList.remove("element__like-button_active");
-//           likeNumber.textContent--;
-//         } else {
-//           evt.target.classList.add("element__like-button_active");
-//           putLike(element["_id"]);
-//           likeNumber.textContent++;
-//         }
-//       }
-//     });
-//     cardsContainer.append(cardElement);
-//   });
-// });
-
 function deleteUserCard(evt, cardId) {
-  if (
-    evt.target.classList.contains("element__remove-button") &&
-    cardId === evt.target.getAttribute("id")
-  ) {
-    deleteCard(cardId).catch((res) => {
-      console.log(res);
-      evt.currentTarget.remove();
-    });
+  const targetElement = evt.currentTarget;
+  const currentElementRemove = targetElement.closest(".element");
+  if (evt.target.classList.contains("element__remove-button")) {
+    deleteCard(cardId)
+      .then((res) => {
+        currentElementRemove.remove();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 
@@ -125,47 +83,26 @@ function putLikes(evt, cardId, element) {
     evt.target.classList.contains("element__like-button") &&
     evt.target.classList.contains("element__like-button_active")
   ) {
-    evt.target.classList.remove("element__like-button_active");
     deleteLike(cardId)
       .then((res) => {
-        console.log(res);
-        likeNumbers.textContent--;
+        const likes = res.likes;
+        evt.target.classList.remove("element__like-button_active");
+        likeNumbers.textContent = likes.length;
       })
-      .catch((res) => {
-        console.log(res);
+      .catch((error) => {
+        console.log(error);
       });
   } else {
-    evt.target.classList.add("element__like-button_active");
     putLike(cardId)
       .then((res) => {
-        console.log(res);
-        likeNumbers.textContent++;
+        const likes = res.likes;
+        likeNumbers.textContent = likes.length;
+        evt.target.classList.add("element__like-button_active");
       })
       .catch((res) => {
         console.log(res);
       });
   }
 }
-
-// function fetchLikeButton(likeNumber, button, cardId) {
-//   if (button.classList.contains("element__like-button_active")) {
-//     deleteLike(cardId)
-//       .then((res) => {
-//         likeNumber.textContent = res.likes.length;
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   } else {
-//     putLike(cardId)
-//       .then((res) => {
-//         likeNumber.textContent = res.likes.length;
-//         button.classList.add("element__like-button_active");
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }
-// }
 
 export { createCard, fetchCard };

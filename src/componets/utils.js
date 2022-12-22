@@ -7,11 +7,6 @@ function closePopup(popup) {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  popup.addEventListener("click", (evt) => {
-    if (evt.currentTarget === evt.target) {
-      closePopup(popup);
-    }
-  });
   document.addEventListener("keydown", handleKey);
 }
 
@@ -23,8 +18,25 @@ function handleKey(evt) {
   }
 }
 
-popups.forEach(function (popup) {
-  popup.addEventListener("click", function (evt) {
+// function closePopupByOverlay(evt) {
+//   if (evt.currentTarget === evt.target) {
+//     closePopup(evt);
+//   }
+// }
+
+// popups.forEach(function (popup) {
+//   popup.addEventListener("click", function (evt) {
+//     if (evt.target.classList.contains("popup__close-button")) {
+//       closePopup(popup);
+//     }
+//   });
+// });
+
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
     if (evt.target.classList.contains("popup__close-button")) {
       closePopup(popup);
     }
@@ -33,9 +45,9 @@ popups.forEach(function (popup) {
 
 function loadRender(isLoading, button) {
   if (isLoading) {
-    button.textContent = button.textContent + "...";
+    button.textContent = "Сохранить...";
   } else {
-    button.textContent = button.textContent + "...";
+    button.textContent = "Сохранить";
   }
 }
 

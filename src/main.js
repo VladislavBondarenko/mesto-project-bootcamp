@@ -40,7 +40,6 @@ Promise.all([userInfo, cardsInfo])
     const userAbout = user.about;
     const userId = user._id;
 
-    console.log(userName);
     profileAvatar.setAttribute("src", userAvatar);
     profileName.textContent = userName;
     profileAbout.textContent = userAbout;
@@ -55,11 +54,14 @@ Promise.all([userInfo, cardsInfo])
     console.log(error);
   });
 
-// fetchProfileInfo().then((element) => {
-//   profileName.textContent = element["name"];
-//   profileAbout.textContent = element["about"];
-//   profileAvatar.setAttribute("src", `${element["avatar"]}`);
-// });
+enableValidation({
+  inputSelector: ".popup__field",
+  submitButton: ".popup__submit-button",
+  formSelector: ".popup__form",
+  inputErrorClass: "popup__field_type_error",
+  textErrorClass: "popup__field-error_active",
+  submitButtonDisabled: "popup__submit-button_disabled",
+});
 
 addButton.addEventListener("click", function () {
   openPopup(popupAdd);
@@ -72,8 +74,6 @@ editButton.addEventListener("click", function () {
 formProfile.addEventListener("submit", handleProfileFormSubmit);
 
 formAddNewPlace.addEventListener("submit", handleNewPlaceFormSubmit);
-
-enableValidation();
 
 buttonAvatar.addEventListener("click", function () {
   openPopup(popupAvatar);

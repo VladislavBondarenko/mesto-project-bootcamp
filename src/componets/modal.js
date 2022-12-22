@@ -20,15 +20,19 @@ const image = document.querySelector(".popup__place_url");
 
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileAbout.textContent = aboutInput.value;
+
   loadRender(true, submitProfileEdit);
-  editProfileInfo(profileName, profileAbout)
+  editProfileInfo(nameInput, aboutInput)
+    .then((res) => {
+      console.log(res);
+      profileName.textContent = res.name;
+      profileAbout.textContent = res.about;
+      closePopup(popupEdit);
+    })
     .catch((res) => {
       console.log(`Ошибка:${res.status}`);
     })
     .finally(() => {
-      closePopup(popupEdit);
       loadRender(false, submitProfileEdit);
     });
 };
@@ -43,27 +47,31 @@ const handleNewPlaceFormSubmit = (evt) => {
       console.log(res);
       const currentUser = res.owner._id;
       const card = fetchCard(res, currentUser);
+      closePopup(popupAdd);
+      evt.target.reset();
     })
     .catch((res) => {
       console.log(res);
     })
     .finally(() => {
-      closePopup(popupAdd);
       loadRender(false, submitToAddNewPlace);
     });
-  evt.target.reset();
 };
 
 const handleAvatarFormSubmit = (evt) => {
   evt.preventDefault();
   loadRender(true, submitToAddNewPlace);
-  profileAvatar.setAttribute("src", `${avatarFormInput.value}`);
-  editAvatar(profileAvatar.getAttribute("src"))
+  // profileAvatar.setAttribute("src", `${avatarFormInput.value}`);
+  editAvatar(avatarFormInput)
+    .then((res) => {
+      profileAvatar.setAttribute("src", `${res.avatar}`);
+      closePopup(popupAvatar);
+      evt.target.reset();
+    })
     .catch((res) => {
       console.log(`Ошибка:${res.status}`);
     })
     .finally(() => {
-      closePopup(popupAvatar);
       loadRender(false, submitToAddNewPlace);
     });
 };
