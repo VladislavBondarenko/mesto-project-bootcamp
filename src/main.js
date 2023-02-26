@@ -45,7 +45,7 @@ Promise.all([userInfo, cardsInfo])
     profileAbout.textContent = userAbout;
 
     const initialCards = array[1];
-    initialCards.forEach((element) => {
+    initialCards.reverse().forEach((element) => {
       const currentCard = element;
       const card = fetchCard(currentCard, userId);
     });
@@ -69,6 +69,8 @@ addButton.addEventListener("click", function () {
 
 editButton.addEventListener("click", function () {
   openPopup(popupEdit);
+  nameInput.value = profileName.textContent;
+  aboutInput.value = profileAbout.textContent;
 });
 
 formProfile.addEventListener("submit", handleProfileFormSubmit);
